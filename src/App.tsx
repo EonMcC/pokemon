@@ -1,33 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.scss'
+import { useEffect, useState } from 'react';
+import { getInitialPokemon } from './api'
+import "./assets/fonts/Pokemon_Hollow.ttf";
+import "./theme.scss";
+import GameCard from './components/game-card/GameCard';
+import { BasicPokemonData } from './interfaces/AllPokemon';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [initialPokemon, setInitialPokemon] = useState<BasicPokemonData[]>([]);
+  const [showGame, setShowGame] = useState(false);
+
+  useEffect(() => {
+    setUpGame();
+  }, [])
+
+  async function setUpGame() {
+    const response = await getInitialPokemon();
+    if (response) setInitialPokemon(response.results);
+  }
+
+  if (!showGame) {
+    return (
+      <>
+        <h1>Who's That Pokémon!?</h1>
+        <button
+          className="btn-text"
+          disabled={!initialPokemon}
+          onClick={() => setShowGame(true)}
+        >
+          {!initialPokemon ? "Loading data..." : "START GAME"}
+        </button>
+      </>
+    )
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Who's That Pokémon!?</h1>
+      <h2>Can you score a perfect 5?</h2>
+      <GameCard initialPokemon={initialPokemon} />
     </>
   )
 }

@@ -1,0 +1,11 @@
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 4px;
+  column-gap: 8px;
+  width: 100%;
+
+  >* {
+    width: 100%;
+  }
+}

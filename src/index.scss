@@ -1,68 +1,74 @@
+@font-face {
+  font-family: "Pokemon_Hollow";
+  src: local("Pokemon_Hollow"), url("./assets/fonts/Pokemon_Hollow.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pokemon_Solid";
+  src: local("Pokemon_Solid"), url("./assets/fonts/Pokemon_Solid.ttf") format("truetype");
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-size: 62.5%;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-size: 1.6rem;
+  background: var(--yellow);
+  text-align: center;
+}
+
+p {
+  color: var(--text);
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-family: "Pokemon_Solid", sans-serif;
+  font-size: 5rem;
+  color: var(--blue);
+  letter-spacing: 0.5rem;
+  text-align: center;
+  line-height: 7.4rem;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  background: none;
+  border: 1px solid var(--text);
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 2rem;
+  transition: all .3s;
+  margin: 4px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+  &:hover {
+    color: var(--white);
+  }
+
+  &:disabled {
+    opacity: 1;
+    color: var(--text);
+    cursor: default;
+  }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.btn-text {
+  border: 1px solid transparent;
+  color: var(--white);
+
+  &:hover {
+    border: 1px solid var(--white);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+
+  &:disabled {
+    // opacity: .7;
+    color: var(--white);
+    cursor: default;
+
+    &:hover {
+      border: 1px solid transparent;
+    }
   }
 }
