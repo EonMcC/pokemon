@@ -11,6 +11,7 @@ export async function getInitialPokemon() {
   } catch (error) {
     window.alert(`${error}. Please try again. If this error persists then contact customer service.`);
   }
+  console.log('resp', resp)
   return resp ? resp.data as GetAllPokemonData : null;
 }
 

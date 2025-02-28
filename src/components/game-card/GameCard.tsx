@@ -7,6 +7,7 @@ import { Option } from '../../interfaces/Option';
 import GameOverModal from '../game-over-modal/GameOverModal';
 import { BasicPokemonData } from '../../interfaces/AllPokemon';
 import { getPokemonDetails } from '../../api';
+import { selectFour } from './GameCardUtils';
 
 const GameCard: React.FC<{
   initialPokemon: BasicPokemonData[];
@@ -27,17 +28,6 @@ const GameCard: React.FC<{
     useEffect(() => {
       newRound();
     }, []);
-
-    function selectFour() {
-      const fourPokemon: BasicPokemonData[] = [];
-      if (initialPokemon) {
-        while (fourPokemon.length < 4) {
-          const el = initialPokemon[getRandInt(initialPokemon.length)];
-          if (!fourPokemon.includes(el)) fourPokemon.push(el);
-        }
-      }
-      return fourPokemon;
-    }
 
     function onPokemonSelect(name: string) {
       setIsEndOfRound(true);
@@ -62,7 +52,7 @@ const GameCard: React.FC<{
       setRound(prevState => prevState += 1);
       setHalfPoints(false);
       setIsEndOfRound(false);
-      const fourPokemon = selectFour();
+      const fourPokemon = selectFour(initialPokemon);
       const keyPokemon = await getPokemonDetails(fourPokemon[getRandInt(fourPokemon.length)].url);
       if (keyPokemon) {
         setKeyPokemon(keyPokemon);
@@ -89,6 +79,7 @@ const GameCard: React.FC<{
 
     return (
       <>
+        {!keyPokemon && <h3>Loading...</h3>}
         <div className="game-card">
           <div className="game-card__stats">
             <p>Round: {round}/5</p>
@@ -115,12 +106,15 @@ const GameCard: React.FC<{
             keyPokemonName={keyPokemon.name}
             onSelect={onPokemonSelect}
           />
-          <button
-            className="btn-text"
-            onClick={removeOption}
-          >
-            Remove an incorrect option for half points?
-          </button>
+          {options.length > 0 && (
+            <button
+              className="btn-text"
+              disabled={options.length < 4}
+              onClick={removeOption}
+            >
+              Remove an incorrect option for half points?
+            </button>
+          )}
         </div>
 
         {gameOver && (
