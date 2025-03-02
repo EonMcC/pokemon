@@ -11,7 +11,6 @@
 :root {
   font-family: "Roboto", sans-serif;
   font-size: 62.5%;
-
 }
 
 body {
@@ -39,7 +38,7 @@ button {
   border-radius: 5px;
   padding: 8px;
   font-size: 2rem;
-  transition: all .3s;
+  transition: background-color .3s;
   margin: 4px;
   cursor: pointer;
 
@@ -52,6 +51,10 @@ button {
     color: var(--text);
     cursor: default;
   }
+
+  &:active {
+    transform: translateY(1px);
+  }
 }
 
 .btn-text {
@@ -63,8 +66,8 @@ button {
   }
 
   &:disabled {
-    // opacity: .7;
     color: var(--white);
+    opacity: .7;
     cursor: default;
 
     &:hover {

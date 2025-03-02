@@ -1,17 +1,17 @@
 import React from 'react';
 import { capitalise } from '../../helper-functions';
 import "./Options.scss";
-import { Option } from '../../interfaces/Option';
+import { VerifyResponse } from '../../interfaces/ApiResponses';
 
 const Options: React.FC<{
-  options: Option[];
-  chosenPokemonName: string;
-  keyPokemonName: string;
+  options: string[];
+  result: VerifyResponse | undefined;
+  chosenName: string;
   onSelect: (name: string) => void;
 }> = ({
   options,
-  chosenPokemonName,
-  keyPokemonName,
+  result,
+  chosenName,
   onSelect
 }) => {
 
@@ -20,24 +20,22 @@ const Options: React.FC<{
         border: "1px solid black",
         backgroundColor: "transparent"
       }
-
-      if (optionName === chosenPokemonName && optionName !== keyPokemonName) style.backgroundColor = "var(--red)";
-      if (chosenPokemonName && optionName === keyPokemonName) style.backgroundColor = "var(--green)";
+      if (result?.name === optionName) style.backgroundColor = "var(--green)";
+      if (chosenName === optionName && !result?.isCorrect) style.backgroundColor = "var(--red)";
       return style;
     }
-
 
     return (
       <div className="options">
         {options.length > 0 && options.map(option => {
           return (
             <button
-              key={option.name}
-              style={getStyle(option.name)}
-              disabled={!!chosenPokemonName}
-              onClick={() => onSelect(option.name)}
+              key={option}
+              style={getStyle(option)}
+              disabled={!!chosenName}
+              onClick={() => onSelect(option)}
             >
-              {capitalise(option.name)}
+              {capitalise(option)}
             </button>
           )
         })}

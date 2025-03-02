@@ -13,7 +13,7 @@ const GameOverModal: React.FC<{
       <>
         <div className="modal-mask" />
         <div className="game-over-modal">
-          <h2>Game over!</h2>
+          <h2>Game Over</h2>
           <p>You scored <span>{score}</span> points</p>
           <button
             className="btn-text"
